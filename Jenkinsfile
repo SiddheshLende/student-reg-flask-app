@@ -11,9 +11,13 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 sh '''
-                python3 -m venv venv || true
+                # Create and activate virtual environment
+                python3 -m venv venv
                 . venv/bin/activate
-                pip install -r requirements.txt
+
+                # Upgrade pip and install dependencies inside venv
+                python3 -m pip install --upgrade pip
+                pip install --break-system-packages -r requirements.txt
                 '''
             }
         }
@@ -22,7 +26,7 @@ pipeline {
             steps {
                 sh '''
                 . venv/bin/activate
-                nohup python3 app.py &
+                nohup python3 app.py > flask.log 2>&1 &
                 '''
             }
         }
