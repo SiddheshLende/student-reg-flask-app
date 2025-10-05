@@ -57,32 +57,4 @@ Install Jenkins on EC2
 Create a new Pipeline job with your GitHub repo  
 Use the following Jenkinsfile:  
 
-pipeline {
-    agent any
-    stages {
-        stage('Checkout Code') {
-            steps {
-                git branch: 'main', url: 'https://github.com/siddheshlende/student-reg-flask-app.git'
-            }
-        }
-        stage('Install Dependencies') {
-            steps {
-                sh '''
-                    python3 -m venv venv
-                    . venv/bin/activate
-                    pip install --upgrade pip
-                    pip install --break-system-packages -r requirements.txt
-                '''
-            }
-        }
-        stage('Run Flask App') {
-            steps {
-                sh '''
-                    . venv/bin/activate
-                    nohup python3 app.py > flask.log 2>&1 &
-                '''
-            }
-        }
-    }
-}
 
