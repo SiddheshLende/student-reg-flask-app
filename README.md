@@ -56,6 +56,7 @@ tail -f flask.log
 Install Jenkins on EC2  
 Create a new Pipeline job with your GitHub repo  
 Use the following Jenkinsfile:  
+
 pipeline {
     agent any
     stages {
