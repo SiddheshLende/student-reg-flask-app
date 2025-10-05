@@ -11,7 +11,6 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 sh '''
-                cd stud-reg-flask-app
                 python3 -m venv venv || true
                 . venv/bin/activate
                 pip install -r requirements.txt
@@ -22,7 +21,7 @@ pipeline {
         stage('Run Flask App') {
             steps {
                 sh '''
-                cd stud-reg-flask-app
+                . venv/bin/activate
                 nohup python3 app.py &
                 '''
             }
